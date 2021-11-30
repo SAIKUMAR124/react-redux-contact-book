@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Home from "./components/Home";
 import AddContact from "./components/AddContact";
+import EditContact from "./components/EditContact";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
           <AddContact />
         </Route>
         <Route exact path="/edit/:id">
-          <h1>Edit</h1>
+          <EditContact />
         </Route>
       </Switch>
     </div>

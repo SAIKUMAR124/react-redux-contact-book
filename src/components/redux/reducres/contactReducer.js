@@ -1,5 +1,3 @@
-import { getDefaultNormalizer } from "@testing-library/dom";
-
 const initialState = [
   {
     id: 0,

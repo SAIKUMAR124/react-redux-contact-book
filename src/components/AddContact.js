@@ -1,6 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify';
 
 const AddContact = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [number, setNumber] = useState('');
+
+    const contacts = useSelector(state=> state);
+    
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+
+        const checkEmail = contacts.find(contact => contact.email === email && email)
+
+        const checkNumber = contacts.find(contact => contact.number === parseInt(number) && number)
+
+        if(!email || !number || !name ){
+            return toast.warning("Please fill in all fields")
+        }
+        if(checkEmail){
+            return toast.error('This email is already Exist!')
+        }
+        if(checkNumber){
+            return toast.error('This Number is already Exist!')
+        }
+    }
+
     return (
         <div className='container'>
             <div className="row">
@@ -8,15 +34,15 @@ const AddContact = () => {
                     Add Student
                 </h1>
                 <div className="col-md-6 shadow mx-auto p-5">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group py-1">
-                            <input type='text' placeholder='Name' className='form-control' />
+                            <input type='text' placeholder='Name' className='form-control' value={name} onChange={e=>setName(e.target.value)} />
                         </div>
                         <div className="form-group py-1">
-                            <input type='email' placeholder='Email' className='form-control' />
+                            <input type='email' placeholder='Email' className='form-control' value={email} onChange={e=>setEmail(e.target.value)} />
                         </div>
                         <div className="form-group py-1">
-                            <input type='number' placeholder='Phone Number' className='form-control' />
+                            <input type='number' placeholder='Phone Number' className='form-control' value={number} onChange={e=>setNumber(e.target.value)} />
                         </div>
                         <div className="form-group py-1">
                             <input type='submit' value='Add Student' className='btn btn-block btn-dark' />
